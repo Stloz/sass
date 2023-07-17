@@ -9,4 +9,8 @@
     height: #{$size}px;
     width: $size * 1px;
     border-radius: 50%;
+
+	 &:hover {
+		opacity: 0.5;
+	 }
 }
