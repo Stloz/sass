@@ -1,0 +1,101 @@
+@function content($value, $num) {
+	// $text: "Hello" $value;
+	// $text: $value == 'World' and $num == 10;
+	
+	@if $num == 10 and $value == 'Hello' {
+		@return 10px;
+	}
+	
+	@if $num == 20 {
+		@return 100px;
+	}
+}
+
+@function fontSize() {
+	@return 30;
+}
+
+@function spacing($num) {
+	@return #{$num * 4}px;
+}
+
+@function calcCenter($size) {
+	@return calc(50% - ($size / 2));
+}
+
+@function getIcon($name) {
+	@if($name == 'burger') {
+		@return '/icon/burger.svg';
+	}
+
+	@if($name == 'user') {
+		@return '/icon/user.svg';
+	}
+
+	@return url(#{$icon});
+}
+
+@mixin button($type: null, $size: null) {
+	background: red;
+	display: inline-block;
+	width: fit-content;
+	padding: spacing(4) spacing(3);
+	border-radius: 12px;
+	text-align: center;
+
+	@if $type == 'primary' {
+		background-color: lightgreen;
+
+	} @else if $type == 'secondary' {
+		background-color: yellow;
+
+	} @else {
+		background-color: red;
+	}
+	
+	
+	@if $size == 'big' {
+		padding: spacing(4) spacing(6);
+
+	} @else if $size == 'small' {
+		padding: spacing(2) spacing(3);
+
+	} @else {
+		padding: spacing(1) spacing(2);
+
+	}
+
+	@if $type == $size {
+		@error 'Type не може дорівнювати Size'
+	}
+}
+
+.wrapper::after {
+
+	content: 'World';
+
+	background-image: content('Hello', 20);
+
+	font-size: #{fontSize()}px;
+	position: absolute;
+	height: 60px;
+	width: 60px;
+	top: calcCenter(40px);
+	background: #ddd;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: spacing(4);
+
+}
+
+.wrapper {
+	display: grid;
+	gap: spacing(4);
+	padding: spacing(5);
+	
+}
+
+.button {
+	@include button('secondary', 'big');
+}
